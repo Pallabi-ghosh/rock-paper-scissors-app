@@ -17,34 +17,34 @@ export default function App() {
   const [game, setGame] = useState({
     name: "Player 1",
     gameStarted: false,
-    userSelaction: "",
-    pcSelaction: "",
+    userSelection: "",
+    pcSelection: "",
     round: 0,
     userScore: 0,
     pcScore: 0,
-    message: "Make your move",
+    message: "",
   });
 
   const reset = () => {
     setGame({
       ...game,
       round: 0,
-      userSelaction: "",
-      pcSelaction: "",
+      userSelection: "",
+      pcSelection: "",
       userScore: 0,
       pcScore: 0,
-      message: "Make your move",
+      message: "",
     });
   };
 
   const playGame = (e) => {
     const user = e.target.parentNode.getAttribute("value");
-    const pc = ["Rock", "paper", "Scissors"][Math.floor(Math.random() * 3)];
+    const pc = ["Rock", "Paper", "Scissors"][Math.floor(Math.random() * 3)];
 
     if (user === pc) {
       setGame({
         ...game,
-        massage: (game.massage = "It's a tie"),
+        message: (game.message = "It's a tie"),
       });
     } else if (
       (user === "Rock" && pc === "Scissors") ||
@@ -54,20 +54,20 @@ export default function App() {
       setGame({
         ...game,
         userScore: (game.userScore += 1),
-        massage: (game.massage = "You won the match!"),
+        message: (game.message = "You won the match!"),
       });
     } else {
       setGame({
         ...game,
         pcScore: (game.pcScore += 1),
-        massage: (game.massage = "You lost the match!"),
+        message: (game.message = "You lost the match!"),
       });
     }
     setGame({
       ...game,
       round: (game.round += 1),
-      userSelaction: user,
-      pcSelaction: pc,
+      userSelection: user,
+      pcSelection: pc,
     });
   };
 
@@ -114,7 +114,7 @@ export default function App() {
         </div>
         <div className="message-box">
           {game.userSelection === "" ? (
-            <h1>Vs</h1>
+            <h1>VS</h1>
           ) : (
             <>
               <h3 className="message">{game.message}</h3>
@@ -125,14 +125,14 @@ export default function App() {
         <div className="box pc-box">
           <h1>Computer</h1>
           {game.pcScore < 10 ? (
-            game.userSelaction === "" ? (
-              <h3>waiting for your selection!</h3>
+            game.userSelection === "" ? (
+              <h3>Waiting for your selection!</h3>
             ) : (
               <>
                 <img
                   className="pc-selection-img"
                   src={
-                    game.pcSelaction === "Rock"
+                    game.pcSelection === "Rock"
                       ? rock
                       : game.pcSelection === "Paper"
                       ? paper
@@ -140,7 +140,7 @@ export default function App() {
                   }
                   alt="img"
                 />
-                <h3>pc selected : {game.pcSelaction}</h3>
+                <h3>Pc selected : {game.pcSelection}</h3>
               </>
             )
           ) : (
@@ -156,11 +156,11 @@ export default function App() {
         <div />
         <h1>{game.userScore}</h1>
       </div>
-      {game.userSelaction !== "" && (
+      {game.userSelection !== "" && (
         <div onClick={reset} className="reset-btn">
           <h3>
             {game.userScore === 10 || game.pcScore === 10
-              ? "play again"
+              ? "Play again"
               : "Reset"}
           </h3>
         </div>
